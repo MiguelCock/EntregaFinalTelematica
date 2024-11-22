@@ -1,9 +1,7 @@
 import requests
+import sys
 from pyspark.sql import SparkSession
-
-TRUSTED_BUCKET_NAME = "bucketjonathanretos"
-TRUSTED_FOLDER = "trusted/"
-TRUSTED_FILENAME = "covid_analysis_from_api.parquet"
+from pyspark.sql.types import StructType, StructField, StringType
 
 if __name__ == "__main__":
     spark = SparkSession.builder \
@@ -16,14 +14,26 @@ if __name__ == "__main__":
         raise Exception(f"Failed to fetch data from API. HTTP Status Code: {response.status_code}")
 
     data = response.json()
-    rdd = spark.sparkContext.parallelize(data)
 
-    columns = ["fecha reporte web", "id_de_caso", "fecha_de_notificaci_n", "departamento", "departamento_nom", "ciudad_municipio", "ciudad_municipio_nom", "edad", "unidad_medida", "sexo", "fuente_tipo_contagio", "ubicacion", "estado", "pais_viajo_1_cod", "pais_viajo_1_nom", "recuperado", "fecha_inicio_sintomas", "fecha_muerte", "fecha_diagnostico", "fecha_recuperado", "tipo_recuperacion", "per_etn_", "nom_grupo_",]
-    df = spark.createDataFrame(rdd, schema=columns)
+    if len(data) == 0:
+        raise Exception("No data returned from the API.")
 
-    analysis = df.groupBy("departamento").count()
+    sample_record = data[0]
+    schema = StructType([
+        StructField(key, StringType(), True) for key in sample_record.keys()
+    ])
 
-    trusted_data_path = f"s3a://{TRUSTED_BUCKET_NAME}/{TRUSTED_FOLDER}{TRUSTED_FILENAME}"
-    analysis.write.mode("overwrite").parquet(trusted_data_path)
+    normalized_data = [
+        {key: record.get(key, None) for key in sample_record.keys()} for record in data
+    ]
 
-    print(f"Analysis saved to: {trusted_data_path}")
+    rdd = spark.sparkContext.parallelize(normalized_data)
+
+    df = spark.createDataFrame(rdd, schema=schema)
+
+    analysis = df.groupBy("departamento_nom").count()
+    analysis.show()
+
+    analysis.write.mode("overwrite").parquet(sys.argv[1])
+
+    spark.stop()
