@@ -8,7 +8,7 @@ if __name__ == "__main__":
 
     raw_data = spark.read.csv(sys.argv[1], header=True, inferSchema=True)
 
-    analysis = raw_data.groupBy("Nombre municipio").count()
+    analysis = raw_data.groupBy("ciudad_municipio").count()
 
     print(analysis.show())
 
