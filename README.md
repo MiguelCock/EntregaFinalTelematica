@@ -67,7 +67,6 @@ Este proyecto implementa una arquitectura batch para big data, automatizando el 
   - `boto3` para interacción con servicios de AWS.
   - `pyspark` para procesamiento de datos con Spark.
   - `requests` para consumo de APIs.
-  - `sqlalchemy` para conexión con bases de datos relacionales.
 - **Herramientas adicionales**: Hadoop Sqoop para ingesta de datos desde bases de datos hacia S3.
 
 ### Pasos para Compilar y Ejecutar
