@@ -1,12 +1,15 @@
 # info de la materia: ST0263-242
-#
-# Estudiante(s): Miguel Cock, Jonathan Betancur, Esteban Vergara 
-#
-# Profesor: nombre, email-eafit
-
-# nombre del proyecto, lab o actividad
-#
 # Proyecto 3 – Automatización del Proceso de Captura, Ingesta, Procesamiento y Salida de Datos COVID en Colombia
+
+## Estudiante(s): 
+Jonathan Betancur, jbetancur3@eafit.edu.co  
+Esteban Vergara Giraldo, evergarag@eafit.edu.co  
+Miguel Angel Cock Cano, macockc@eafit.edu.co
+
+## Profesor: 
+Alvaro Enrique Ospina SanJuan, aeospinas@eafit.edu.co  
+
+---
 
 ## 1. Descripción de la Actividad
 
@@ -69,10 +72,7 @@ Este proyecto implementa una arquitectura batch para big data, automatizando el 
 
 ### Pasos para Compilar y Ejecutar
 
-1. **Clonar el repositorio**:
-   ```bash
-   git clone https://github.com/tu-usuario/proyecto3.git
-   cd proyecto3
+1. 
 
 ## detalles del desarrollo.
 ## detalles técnicos
