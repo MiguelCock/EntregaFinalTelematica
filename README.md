@@ -216,7 +216,7 @@ CREACION DE TABLA EN ATENA DE RESULTADO DE API
 
 # referencias:
 
-https://www.datos.gov.co/Salud-y-Protecci-n-Social/Casos-positivos-de-COVID-19-en-Colombia-/gt2j-8ykr/about_data
-https://youtu.be/ZFns7fvBCH4?si=BhKg7mc4zkKqH25J
-https://youtu.be/a_3Md9nV2Mk?si=uHYMEzOPlAnCIeuY
-https://youtu.be/_C8kWso4ne4?si=7rGJhIh6BUvWyP3c
+- https://www.datos.gov.co/Salud-y-Protecci-n-Social/Casos-positivos-de-COVID-19-en-Colombia-/gt2j-8ykr/about_data
+- https://youtu.be/ZFns7fvBCH4?si=BhKg7mc4zkKqH25J
+- https://youtu.be/a_3Md9nV2Mk?si=uHYMEzOPlAnCIeuY
+- https://youtu.be/_C8kWso4ne4?si=7rGJhIh6BUvWyP3c
