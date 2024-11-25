@@ -2,9 +2,9 @@
 # Proyecto 3 – Automatización del Proceso de Captura, Ingesta, Procesamiento y Salida de Datos COVID en Colombia
 
 ## Estudiante(s): 
-Jonathan Betancur, jbetancur3@eafit.edu.co  
-Esteban Vergara Giraldo, evergarag@eafit.edu.co  
 Miguel Angel Cock Cano, macockc@eafit.edu.co
+Jonathan Betancur Espinosa, jbetancur3@eafit.edu.co  
+Esteban Vergara Giraldo, evergarag@eafit.edu.co  
 
 ## Profesor: 
 Alvaro Enrique Ospina SanJuan, aeospinas@eafit.edu.co  
@@ -16,7 +16,7 @@ Alvaro Enrique Ospina SanJuan, aeospinas@eafit.edu.co
 Este proyecto implementa una arquitectura batch para big data, automatizando el ciclo de vida completo de gestión de datos relacionados con COVID-19 en Colombia. Las etapas incluyen:
 
 - **Captura de datos**: Obtención de información desde archivos y APIs proporcionadas por el Ministerio de Salud.
-- **Ingesta**: Transferencia de datos desde una base de datos relacional (MySQL/Postgres) hacia Amazon S3.
+- **Ingesta**: Transferencia de datos desde una base de datos relacional hacia Amazon S3.
 - **Procesamiento**: Uso de Amazon EMR con Spark para realizar procesos ETL y análisis de datos.
 - **Salida de datos**: Almacenamiento de resultados procesados y analíticos en S3, con acceso mediante Amazon Athena y una API.
 
@@ -26,13 +26,13 @@ Este proyecto implementa una arquitectura batch para big data, automatizando el 
   - Captura automática de datos desde archivos y APIs del Ministerio de Salud.
   - Ingesta de datos desde una base de datos relacional hacia S3 utilizando herramientas como Hadoop Sqoop.
   - Procesamiento ETL con Spark en EMR para preparar y unir datos, almacenándolos en la zona Trusted de S3.
-  - Análisis descriptivo y creación de pipelines analíticos con SparkSQL y SparkML, con resultados almacenados en la zona Refined de S3.
+  - Análisis descriptivo y creación de pipelines analíticos con SparkSQL, con resultados almacenados en la zona Refined de S3.
   - Exposición de resultados mediante consultas en Amazon Athena y una API.
 
 - **Requerimientos no funcionales**:
   - Automatización completa de los procesos sin intervención humana.
   - Implementación de mejores prácticas para el manejo de datos en entornos distribuidos.
-  - Compatibilidad con múltiples nubes, utilizando AWS como principal y explorando alternativas en GCP y Azure.
+  - Se utilizó AWS como nube principal.
 
 ### 1.2 Aspectos No Cumplidos
 
@@ -45,16 +45,14 @@ Este proyecto implementa una arquitectura batch para big data, automatizando el 
 
 ### Arquitectura de Alto Nivel
 
-- **Fuente de datos**: Archivos y APIs del Ministerio de Salud, base de datos relacional (MySQL/Postgres).
-- **Almacenamiento**: Amazon S3 con zonas Raw, Trusted y Refined.
+- **Fuente de datos**: Archivos del Ministerio de Salud, base de datos relacional (genérica).
+- **Almacenamiento**: Amazon S3 con zonas Raw, Trusted y Code.
 - **Procesamiento**: Amazon EMR con Spark para tareas ETL y análisis.
-- **Consulta y visualización**: Amazon Athena y una API para acceso a los resultados.
+- **Consulta y visualización**: Amazon Athena y archivos de volcado en S3.
 
 ### Patrones y Mejores Prácticas Utilizadas
 
-- **Patrón Lambda**: División en zonas Raw, Trusted y Refined para asegurar la trazabilidad y calidad de los datos.
-- **Automatización**: Uso de scripts para la creación de clústeres, ejecución de procesos ETL y análisis de datos.
-- **Seguridad**: Configuración de roles y políticas de IAM para controlar el acceso a los recursos.
+- **Automatización**: Ejecución de procesos ETL y análisis de datos.
 
 ---
 
@@ -62,12 +60,13 @@ Este proyecto implementa una arquitectura batch para big data, automatizando el 
 
 ### Tecnologías Utilizadas
 
-- **Lenguaje de programación**: Python 3.10.
+- **Lenguaje de programación**: Python 3.
 - **Librerías y paquetes**:
-  - `boto3` para interacción con servicios de AWS.
   - `pyspark` para procesamiento de datos con Spark.
   - `requests` para consumo de APIs.
-- **Herramientas adicionales**: Hadoop Sqoop para ingesta de datos desde bases de datos hacia S3.
+- **Herramientas adicionales**:
+  - `Hadoop Sqoop` para ingesta de datos desde bases de datos hacia S3.
+  - `Hive SQL` para consultas SQL.
 
 ### Pasos para Compilar y Ejecutar
 
@@ -122,12 +121,11 @@ CREACION DE TABLA EN ATENA DE RESULTADO DE API
 ![18](fotos/18.png)
 
 # 4. Descripción del ambiente de EJECUCIÓN (en producción) lenguaje de programación, librerias, paquetes, etc, con sus numeros de versiones.
-## 4. Ambiente de Ejecución
 
 ### Tecnologías
 
-- **Lenguaje de programación**: Python 3.10.
-- **Librerías y paquetes**: Mismas que en el ambiente de desarrollo.
+- **Lenguaje de programación**: Python 3.
+- **Librerías y paquetes**: Mismas que en el [ambiente de desarrollo](#3-ambiente-de-desarrollo). 
 - **Servicios en la nube**:
   - **Almacenamiento**: Amazon S3.
   - **Procesamiento**: Amazon EMR con Spark.
@@ -137,12 +135,6 @@ CREACION DE TABLA EN ATENA DE RESULTADO DE API
 
 - **IP o nombres de dominio**: Configuración automática para clústeres y buckets de S3.
 - **Parámetros**: Mismos que en el ambiente de desarrollo.
-
-### Lanzamiento del Servidor
-
-1. **Iniciar la API para consulta de resultados**:
-   ```bash
-   python api.py
 
 # IP o nombres de dominio en nube o en la máquina servidor.
 
