@@ -6,17 +6,74 @@
 
 # nombre del proyecto, lab o actividad
 #
-# 1. breve descripción de la actividad
-#
-## 1.1. Que aspectos cumplió o desarrolló de la actividad propuesta por el profesor (requerimientos funcionales y no funcionales)
+# Proyecto 3 – Automatización del Proceso de Captura, Ingesta, Procesamiento y Salida de Datos COVID en Colombia
 
-## 1.2. Que aspectos NO cumplió o desarrolló de la actividad propuesta por el profesor (requerimientos funcionales y no funcionales)
+## 1. Descripción de la Actividad
 
-# 2. información general de diseño de alto nivel, arquitectura, patrones, mejores prácticas utilizadas.
+Este proyecto implementa una arquitectura batch para big data, automatizando el ciclo de vida completo de gestión de datos relacionados con COVID-19 en Colombia. Las etapas incluyen:
 
-# 3. Descripción del ambiente de desarrollo y técnico: lenguaje de programación, librerias, paquetes, etc, con sus numeros de versiones.
+- **Captura de datos**: Obtención de información desde archivos y APIs proporcionadas por el Ministerio de Salud.
+- **Ingesta**: Transferencia de datos desde una base de datos relacional (MySQL/Postgres) hacia Amazon S3.
+- **Procesamiento**: Uso de Amazon EMR con Spark para realizar procesos ETL y análisis de datos.
+- **Salida de datos**: Almacenamiento de resultados procesados y analíticos en S3, con acceso mediante Amazon Athena y una API.
 
-## como se compila y ejecuta.
+### 1.1 Aspectos Cumplidos
+
+- **Requerimientos funcionales**:
+  - Captura automática de datos desde archivos y APIs del Ministerio de Salud.
+  - Ingesta de datos desde una base de datos relacional hacia S3 utilizando herramientas como Hadoop Sqoop.
+  - Procesamiento ETL con Spark en EMR para preparar y unir datos, almacenándolos en la zona Trusted de S3.
+  - Análisis descriptivo y creación de pipelines analíticos con SparkSQL y SparkML, con resultados almacenados en la zona Refined de S3.
+  - Exposición de resultados mediante consultas en Amazon Athena y una API.
+
+- **Requerimientos no funcionales**:
+  - Automatización completa de los procesos sin intervención humana.
+  - Implementación de mejores prácticas para el manejo de datos en entornos distribuidos.
+  - Compatibilidad con múltiples nubes, utilizando AWS como principal y explorando alternativas en GCP y Azure.
+
+### 1.2 Aspectos No Cumplidos
+
+- No se implementaron modelos avanzados de aprendizaje automático, ya que eran opcionales.
+- La herramienta AWS DMS no se utilizó debido a limitaciones de permisos; se optó por Hadoop Sqoop como alternativa.
+
+---
+
+## 2. Información General de Diseño
+
+### Arquitectura de Alto Nivel
+
+- **Fuente de datos**: Archivos y APIs del Ministerio de Salud, base de datos relacional (MySQL/Postgres).
+- **Almacenamiento**: Amazon S3 con zonas Raw, Trusted y Refined.
+- **Procesamiento**: Amazon EMR con Spark para tareas ETL y análisis.
+- **Consulta y visualización**: Amazon Athena y una API para acceso a los resultados.
+
+### Patrones y Mejores Prácticas Utilizadas
+
+- **Patrón Lambda**: División en zonas Raw, Trusted y Refined para asegurar la trazabilidad y calidad de los datos.
+- **Automatización**: Uso de scripts para la creación de clústeres, ejecución de procesos ETL y análisis de datos.
+- **Seguridad**: Configuración de roles y políticas de IAM para controlar el acceso a los recursos.
+
+---
+
+## 3. Ambiente de Desarrollo
+
+### Tecnologías Utilizadas
+
+- **Lenguaje de programación**: Python 3.10.
+- **Librerías y paquetes**:
+  - `boto3` para interacción con servicios de AWS.
+  - `pyspark` para procesamiento de datos con Spark.
+  - `requests` para consumo de APIs.
+  - `sqlalchemy` para conexión con bases de datos relacionales.
+- **Herramientas adicionales**: Hadoop Sqoop para ingesta de datos desde bases de datos hacia S3.
+
+### Pasos para Compilar y Ejecutar
+
+1. **Clonar el repositorio**:
+   ```bash
+   git clone https://github.com/tu-usuario/proyecto3.git
+   cd proyecto3
+
 ## detalles del desarrollo.
 ## detalles técnicos
 ## descripción y como se configura los parámetros del proyecto (ej: ip, puertos, conexión a bases de datos, variables de ambiente, parámetros, etc)
