@@ -123,6 +123,27 @@ CREACION DE TABLA EN ATENA DE RESULTADO DE API
 ![18](fotos/18.png)
 
 # 4. Descripción del ambiente de EJECUCIÓN (en producción) lenguaje de programación, librerias, paquetes, etc, con sus numeros de versiones.
+## 4. Ambiente de Ejecución
+
+### Tecnologías
+
+- **Lenguaje de programación**: Python 3.10.
+- **Librerías y paquetes**: Mismas que en el ambiente de desarrollo.
+- **Servicios en la nube**:
+  - **Almacenamiento**: Amazon S3.
+  - **Procesamiento**: Amazon EMR con Spark.
+  - **Consulta**: Amazon Athena.
+
+### Configuración
+
+- **IP o nombres de dominio**: Configuración automática para clústeres y buckets de S3.
+- **Parámetros**: Mismos que en el ambiente de desarrollo.
+
+### Lanzamiento del Servidor
+
+1. **Iniciar la API para consulta de resultados**:
+   ```bash
+   python api.py
 
 # IP o nombres de dominio en nube o en la máquina servidor.
 
