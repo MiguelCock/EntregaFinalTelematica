@@ -70,13 +70,89 @@ Este proyecto implementa una arquitectura batch para big data, automatizando el 
 
 ### Pasos para Compilar y Ejecutar
 
-1. 
+### Guía paso a paso para configurar y ejecutar un step en EMR con S3 y Hive
 
-## detalles del desarrollo.
-## detalles técnicos
-## descripción y como se configura los parámetros del proyecto (ej: ip, puertos, conexión a bases de datos, variables de ambiente, parámetros, etc)
-## opcional - detalles de la organización del código por carpetas o descripción de algún archivo. (ESTRUCTURA DE DIRECTORIOS Y ARCHIVOS IMPORTANTE DEL PROYECTO, comando 'tree' de linux)
-## 
+#### **Preparación en S3**
+1. **Acceder al bucket S3**:
+   - Ve al bucket S3 en tu consola de AWS.
+
+2. **Crear carpetas necesarias**:
+   - **Zona RAW**: Crea una carpeta llamada `raw` donde se almacenará el archivo de la base de datos.
+   - **Zona TRUSTED**:
+     - Dentro de esta, crea dos subcarpetas:
+       - `api`: Para almacenar resultados relacionados con la API.
+       - `archivo`: Para almacenar otros resultados de steps.
+   - **Zona de CÓDIGOS**:
+     - Crea una carpeta llamada `codigo` donde subirás los siguientes archivos desde tu repositorio:
+       - Archivos `.py` (código Python).
+       - Archivos `.hql` (consultas HiveQL).
+       - Archivos `.sh` (scripts de Shell).
+
+3. **Subir archivos**:
+   - Carga los archivos correspondientes en cada carpeta creada.
+
+---
+
+#### **Configuración en Amazon EMR**
+4. **Clonar el cluster EMR existente**:
+   - Dirígete a la consola de EMR.
+   - Selecciona el cluster de ejemplo creado en el tutorial de la clase.
+   - Haz clic en **Clone** para crear un nuevo cluster con la misma configuración.
+
+5. **Configurar los Steps**:
+   - Ve a la sección **Steps** del cluster.
+   - Añade los siguientes Steps según el tipo de archivo a ejecutar:
+
+---
+
+#### **Creación de Steps**
+**1. Para ejecutar archivos Python (.py):**
+   - **Tipo**: Selecciona `Custom JAR`.
+   - **Nombre**: Asigna un nombre al Step.
+   - **JAR location**: Introduce `command-runner.jar`.
+   - **Argumentos**: Ingresa lo siguiente:
+     ```
+     spark-submit s3://<bucket-name>/codigo/<archivo-python>
+     ```
+   - Sustituye `<bucket-name>` y `<archivo-python>` con los valores correspondientes.
+
+**2. Para ejecutar scripts de Shell (.sh):**
+   - **Tipo**: Selecciona `Shell Script`.
+   - **Nombre**: Asigna un nombre al Step.
+   - **Argumentos**: Ingresa lo siguiente:
+     ```
+     bash s3://<bucket-name>/codigo/<archivo-shell>
+     ```
+
+**3. Para ejecutar consultas HiveQL (.hql):**
+   - **Tipo**: Selecciona `Hive Program`.
+   - **Nombre**: Asigna un nombre al Step.
+   - **Script S3 location**: Proporciona la ubicación del archivo HiveQL:
+     ```
+     s3://<bucket-name>/codigo/<archivo-hql>
+     ```
+
+---
+
+#### **Ejecución y Verificación**
+6. **Ejecutar el cluster**:
+   - Inicia el cluster con los Steps configurados.
+
+7. **Verificar resultados en EMR**:
+   - Accede a la sección **Steps** del cluster.
+   - Consulta los logs y resultados generados para cada Step:
+     - Ve a los logs de output para validar la ejecución del archivo de HiveQL.
+
+---
+
+#### **Ejecución adicional en Athena**
+
+8. **Cargar y ejecutar consultas SQL**:
+   - Carga los archivos SQL del repositorio.
+   - Ejecuta las consultas en este orden:
+     1. Creación de las bases de datos.
+     2. Consultas que hacen queries sobre los datos procesados.
+
 ## opcionalmente - si quiere mostrar resultados o pantallazos 
 
 EJEMPLO CLOUD9
@@ -136,20 +212,6 @@ CREACION DE TABLA EN ATENA DE RESULTADO DE API
 - **IP o nombres de dominio**: Configuración automática para clústeres y buckets de S3.
 - **Parámetros**: Mismos que en el ambiente de desarrollo.
 
-# IP o nombres de dominio en nube o en la máquina servidor.
-
-## descripción y como se configura los parámetros del proyecto (ej: ip, puertos, conexión a bases de datos, variables de ambiente, parámetros, etc)
-
-## como se lanza el servidor.
-
-## una mini guia de como un usuario utilizaría el software o la aplicación
-
-## opcionalmente - si quiere mostrar resultados o pantallazos 
-
 # 5. otra información que considere relevante para esta actividad.
 
 # referencias:
-<debemos siempre reconocer los créditos de partes del código que reutilizaremos, así como referencias a youtube, o referencias bibliográficas utilizadas para desarrollar el proyecto o la actividad>
-## sitio1-url 
-## sitio2-url
-## url de donde tomo info para desarrollar este proyecto

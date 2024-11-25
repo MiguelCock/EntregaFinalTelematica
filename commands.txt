@@ -1,7 +1,3 @@
-spark-submit db_file.py s3://bucketjonathanretos/raw/covid_data.csv s3://bucketjonathanretos/trusted/file
-spark-submit db_api.py s3://bucketjonathanretos/trusted/api/
-spark-submit save_file.py s3://bucketjonathanretos/trusted/
-
 command-runner.jar
 
 spark-submit s3://bucketjonathanretos/scripts/db_file.py s3://bucketjonathanretos/raw/covid_data.csv s3://bucketjonathanretos/trusted/file/
